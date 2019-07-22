@@ -15,4 +15,6 @@ public interface IDemo {
     Sheet createSheet();
 
     List<User> getList();
+
+    List<List<String>> getListStr();
 }

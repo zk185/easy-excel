@@ -33,20 +33,20 @@ public class DemoImpl implements IDemo {
              User user = new User();
              user.setId1(i);
              user.setId2(i+1);
-             user.setName("aa" + i);
+//             user.setName("aa" + i);
              list.add(user);
         }
         return list;
     }
 
+    @Override
     public List<List<String>> getListStr() {
         List<List<String>> list = new ArrayList<>();
 
-        for (int i = 0; i < 100000; i++) {
+        for (int i = 0; i < 10; i++) {
             List<String> listChild = new ArrayList<>();
             listChild.add("a");
             listChild.add(i + "");
-            listChild.add("b");
             list.add(listChild);
         }
         return list;

@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -52,4 +50,23 @@ public class DemoController {
             e.printStackTrace();
         }
     }
+
+    @RequestMapping("/exportExcelTemplate")
+    public void exportExcelTemplate() throws IOException {
+        InputStream in = new FileInputStream("H:/aa.xlsx");
+        OutputStream out = new FileOutputStream("H:/2007.xlsx");
+        ExcelWriter writer = EasyExcelFactory.getWriterWithTemp(in,out,ExcelTypeEnum.XLSX,false);
+
+        //写第一个sheet, sheet1  数据全是List<String> 无模型映射关系
+        Sheet sheet1 = new Sheet(1, 0, User.class);
+        sheet1.setSheetName("第一个sheet");
+        //or 设置自适应宽度
+        sheet1.setAutoWidth(Boolean.TRUE);
+        writer.write0(iDemo.getList(), sheet1, 3, 2,0);
+
+        //关闭资源
+        writer.finish();
+        out.close();
+    }
+
 }
